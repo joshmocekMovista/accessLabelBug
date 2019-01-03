@@ -1,0 +1,26 @@
+<Alloy>
+	<Window class="container" layout="vertical">
+		<ScrollView layout="vertical" height="200">
+			<ImageView width="50" height="50" top="0" id="scrollimage" accessibilityLabel="ScrollImage" image="/images/myimage.png" onClick="doClick" />
+			<Label class="boxClass" id="label1" top="10" accessibilityLabel="Hello" onClick="doClick">Hello, World</Label>
+			<View class="boxClass" id="view2" accessibilityLabel="View2" onClick="doClick">
+				<Label accessibilityLabel="heyLabel" id="heyLabel">Hey</Label>
+			</View>
+			<View class="boxClass">
+				<Label accessibilityLabel="labelInView" id="labelInView" onClick="doClick">Label in View</Label>
+			</View>
+			<TextField class="boxClass" id="textField" accessibilityLabel="textField" onClick="doClick" backgroundColor="lightgray"></TextField>
+			<View class="boxClass" backgroundColor="lightgray" onClick="doClick" top="10">
+				<TextField height="40" width="180" accessibilityLabel="TFInView" id="TFInView" backgroundColor="yellow"></TextField>
+			</View>
+		</ScrollView>
+		<View class="boxClass">
+			<Label left="0" text="ID: "></Label>
+			<Label right="0" id="changeID" text="Nothing"></Label>
+		</View>
+		<View class="boxClass">
+			<Label left="0" text="Access Label: "></Label>
+			<Label right="0" id="changeLabel" text="Nothing"></Label>
+		</View>
+	</Window>
+</Alloy>

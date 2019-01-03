@@ -1,0 +1,51 @@
+** Bug Report **
+Reported By Josh Mocek
+January 1, 2019
+
+Use the files that I had for the titanium app. You will notice that there are accessibilityLabels on multiple elements in the XML. So far the accessibilityLabels work somewhat on iOS. On Android they are currently showing up on Labels, but you will notice that they are on the wrong element on "TextFields" and "ImageViews". You can inspect the elements with appium or with the Android Tool UIAutomatorViewer.
+
+Reference "textInputLayout-editText.png", "editText.png", "appium-TextInputLayout.png", and "appium-editText.png".
+
+On "TextFields" instead of being on the <EditText> element it is on the parent and looks like:
+
+{code:xml}
+<TextInputLayout accessibilityLabel="textAccessibilityLabel">
+    <FrameLayout>
+       <EditText />
+    </FrameLayout>
+</TextInputLayout>
+{code}
+
+This messes up automated testing since in selenium I want to run the same code for iOS and Android (it works on iOS currently). Here is they python code I run in selenium to add text to a <TextField> in iOS this works on Android it can't send the keys because it is trying to send the keys to the <TextInputLayout> element instead of <EditText> element:
+
+{code:python}
+context.driver.find_element_by_accessibility_id('textAccessibilityLabel').send_keys('text added by automated test')
+{code}
+
+I think the Android XML should look like this:
+
+{code:xml}
+<TextInputLayout>
+    <FrameLayout>
+        <EditText accessibilityLabel="textAccessibilityLabel" />
+    </FrameLayout>
+</TextInputLayout>
+{code}
+
+This is also a problem with the <ImageView> element. Reference "viewGroup-imageView.png" and "imageView.png". You will notice that the accessibilityLabel is on the <ViewGroup> element instead of the <ImageView> element. The Android looks like this:
+
+{code:xml}
+<ViewGroup accessibilityLabel="imageAccessibilityLabel">
+    <ImageView />
+</ViewGroup>
+{code}
+
+I think it should look like this:
+
+{code:xml}
+<ViewGroup>
+    <ImageView accessibilityLabel="imageAccessibilityLabel" />
+</ViewGroup>
+{code}
+
+Once again this works on iOS and it doesn't on Android because it doesn't find the correct element because the "accessibilityLabel" is tied to the <ViewGroup> element instead of the <ImageView> element.
